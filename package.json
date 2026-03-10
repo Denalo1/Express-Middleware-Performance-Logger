@@ -4,7 +4,7 @@
   "description": "Developer tool to monitor RESTful API preformance",
   "main": "index.js",
     "bin": {
-    "express-perf": "./bin/cli.js"
+    "express-perf": "./bin/cli.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
