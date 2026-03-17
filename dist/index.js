@@ -1,1 +1,1 @@
-export { default } from "./middleware/middleware";
+export { default } from "./middleware/middleware.js";
