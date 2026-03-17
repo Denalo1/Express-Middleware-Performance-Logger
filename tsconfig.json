@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "dist",             // compiled JS goes here
-    "rootDir": "src",             // your source TS files
-    "module": "commonjs",         // Node-friendly modules
-    "target": "es6",              // JS target
-    "esModuleInterop": true,      // allows default import of CommonJS modules
-    "strict": true,               // optional, recommended for TypeScript safety
-    "declaration": true           // generates type definitions (*.d.ts) for consumers
+    "outDir": "dist",
+    "rootDir": "src",
+    "module": "ESNext",
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "declaration": true,
+    "types":["node"]
   },
-  "include": ["src/**/*", "src/middleware/index.ts"]  // include source files and entry point
+  "include": ["src"]
 }

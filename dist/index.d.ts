@@ -1,2 +1,1 @@
-import performanceLogger from "./middleware/middleware";
-export default performanceLogger;
+export { default } from "./middleware/middleware";

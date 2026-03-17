@@ -1,7 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const performanceLogger = function (req, res, next) {
-    console.log(req.method, req.ip, req.protocol, req.signedCookies, req.route, req.subdomains, req.originalUrl);
+const performanceLogger = (req, res, next) => {
+    const start = Date.now();
+    console.log(`*EML* Server recieved a request:
+        Request IP: ${req.ip}
+        Request Protocol: ${req.protocol}
+        Signes Cookies: ${req.signedCookies}
+        Route: ${req.route}
+        SubDomains: ${req.subdomains}
+        OriginalURL: ${req.originalUrl}
+
+        Response time: ${start - Date.now()}
+        `);
     next();
 };
-exports.default = performanceLogger;
+export default performanceLogger;

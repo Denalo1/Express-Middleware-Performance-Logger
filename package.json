@@ -1,35 +1,26 @@
 {
   "name": "express-middleware-performance-logger",
   "version": "1.0.0",
-  "description": "Developer tool to monitor RESTful API preformance",
+  "type": "module",
+  "description": "Developer tool to monitor RESTful API performance",
   "main": "dist/index.js",
-  "bin": {
-    "express-perf": "./bin/cli.ts"
-  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Denalo1/Express-Middleware-Performance-Logger.git"
+  "bin": {
+    "epl-init": "./dist/bin/cli.js"
   },
   "peerDependencies": {
     "express": "^5.2.1"
   },
-  "keywords": [
-    "Express",
-    "Npm",
-    "Logger",
-    "Middleware",
-    "Preformance"
-  ],
-  "author": "Denalo Simmons",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Denalo1/Express-Middleware-Performance-Logger/issues"
-  },
-  "homepage": "https://github.com/Denalo1/Express-Middleware-Performance-Logger#readme",
-  "dependencies": {
-    "@types/express": "^5.0.6"
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "typescript": "^5.8.2"
   }
 }
