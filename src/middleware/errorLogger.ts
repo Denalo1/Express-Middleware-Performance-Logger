@@ -5,14 +5,14 @@ import { Request, Response, NextFunction,ErrorRequestHandler } from "express";
   res: Response,
   next: NextFunction
 ) => {
-  console.error(
+console.error(
 `*EML* ERROR:
   Method: ${req.method}
   URL: ${req.originalUrl}
   Status: ${res.statusCode}
   Message: ${err.message}
   Stack: ${err.stack}
-  `);
+`);
 
   next(err);
 };
