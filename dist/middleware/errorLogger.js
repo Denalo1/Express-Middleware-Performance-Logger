@@ -1,11 +1,22 @@
+//divider for console output
+const divider = "─".repeat(50);
+//error handling middleware
 const errorLogger = (err, req, res, next) => {
-    console.error(`*EML* ERROR:
-  Method: ${req.method}
-  URL: ${req.originalUrl}
-  Status: ${res.statusCode}
-  Message: ${err.message}
-  Stack: ${err.stack}
-`);
-    next(err);
+    //retrieve status code
+    const status = err.status ?? err.statusCode ?? 500;
+    //get timestamp
+    const timestamp = new Date().toISOString();
+    //error log output
+    console.error(`
+[EML] ERROR
+${divider}
+  Timestamp: ${timestamp}
+  Method:    ${req.method}
+  URL:       ${req.originalUrl}
+  Status:    ${status}
+  Message:   ${err.message}
+  Stack:     ${err.stack}
+${divider}`);
+    //calls next middleware  next(err);
 };
 export default errorLogger;

@@ -1,8 +1,11 @@
+//createst a divider for the console output
 const divider = "─".repeat(50);
+//logs minimal output
 function formatMinimal(req, res, durationMs) {
     return (`\n[EML] ${req.method} ${req.originalUrl} ` +
         `→ ${res.statusCode} (${durationMs}ms)`);
 }
+//logs standard output
 function formatStandard(req, res, durationMs) {
     return `
 [EML] Request / Response
@@ -16,6 +19,7 @@ ${divider}
   Response Time: ${durationMs}ms
 ${divider}`;
 }
+//logs verbose output
 function formatVerbose(req, res, durationMs) {
     return `
 [EML] Request / Response — Verbose
@@ -44,14 +48,17 @@ ${divider}
     Response Time:    ${durationMs}ms
 ${divider}`;
 }
+//creates performance logger middleware with timer 
 function performanceLogger(options = {}) {
     const { mode = "minimal", logger = console.log } = options;
     return (req, res, next) => {
+        //start timer
         const startTime = process.hrtime.bigint();
         res.on("finish", () => {
             const endTime = process.hrtime.bigint();
             const durationMs = (Number(endTime - startTime) / 1000000).toFixed(2);
             let output;
+            //selects the format based on mode
             switch (mode) {
                 case "verbose":
                     output = formatVerbose(req, res, durationMs);
@@ -64,8 +71,10 @@ function performanceLogger(options = {}) {
                     output = formatMinimal(req, res, durationMs);
                     break;
             }
+            //logs the output
             logger(output);
         });
+        //calls next middleware
         next();
     };
 }
