@@ -1,24 +1,85 @@
-# Express-Middleware-Performance-Logger
+# express-middleware-performance-logger
 
-Installation instructions
+A lightweight Express middleware for logging request and response information, with configurable verbosity and built-in error logging.
 
-1. Run npm install 'Express-middleware-performance-logger'
+---
 
-2. Import performanceLogger and errorLogger from package in express server
+## Installation
 
-3. Call app.use(performanceLogger/errorLogger) 
+```bash
+npm install express-middleware-performance-logger
+```
 
-Performance logger configuration options
+---
 
-The performanceLogger comes with 3 different logging options, minimal, standard, verbose. 
-These options dictate how much request/response information is logged.
+## Usage
 
-You can choose which of these options you want to use by passing in the option as a second argument
-Example:
+```typescript
+import express from "express";
+import { performanceLogger, errorLogger } from "express-middleware-performance-logger";
 
-app.use(perfomanceLogger({mode:"minimal"})) will output request method and server response time only
+const app = express();
 
-app.use(perfomanceLogger({mode:"standard"})) will ouput the same information, as well as params, status code, and the URL
+// Add performance logging
+app.use(performanceLogger({ mode: "standard" }));
 
-app.use(perfomanceLogger({mode:"versbose"})) will output all request response information
+// Add error logging (place after your routes)
+app.use(errorLogger);
+```
 
+---
+
+## performanceLogger Options
+
+| Option   | Type       | Default     | Description                              |
+|----------|------------|-------------|------------------------------------------|
+| `mode`   | `string`   | `"minimal"` | Controls how much information is logged  |
+| `logger` | `function` | `console.log` | Custom logging function                |
+
+### Modes
+
+**`minimal`** — Logs the request method, URL, status code, and response time.
+
+```
+[EML] GET /api/users → 200 (12.34ms)
+```
+
+**`standard`** — Logs everything in minimal, plus path, query params, and route params.
+
+```
+[EML] Request / Response
+──────────────────────────────────────────────────
+  Method:        GET
+  URL:           /api/users?page=1
+  Path:          /api/users
+  Query Params:  {"page":"1"}
+  Route Params:  {}
+  Status Code:   200
+  Response Time: 12.34ms
+──────────────────────────────────────────────────
+```
+
+**`verbose`** — Logs all request and response information, including headers, IP, cookies, and more.
+
+### Custom Logger
+
+By default, output is sent to `console.log`. You can pass in any logging function:
+
+```typescript
+import { performanceLogger } from "express-middleware-performance-logger";
+import { myLogger } from "./logger";
+
+app.use(performanceLogger({ mode: "standard", logger: myLogger }));
+```
+
+---
+
+## errorLogger
+
+Logs error details whenever an error is passed to Express's `next(err)`. Place it after your routes.
+
+```typescript
+app.use(errorLogger);
+```
+
+Output includes the timestamp, method, URL, status code, error message, and stack trace.
