@@ -26,7 +26,8 @@ ${divider}
   Stack:     ${err.stack}
 ${divider}`);
 
-//calls next middleware  next(err);
+  // Continue to the next error handler.
+  next(err);
 };
 
 export default errorLogger;
